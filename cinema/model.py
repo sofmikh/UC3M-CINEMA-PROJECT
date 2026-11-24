@@ -8,7 +8,7 @@ from sqlalchemy.sql import func
 from . import db
 
 
-# Roles requeridos según las instrucciones
+
 class UserRole(enum.Enum):
     customer = 1
     management_staff = 2
@@ -22,7 +22,6 @@ class User(flask_login.UserMixin, db.Model):
     name: Mapped[str] = mapped_column(String(64))
     password: Mapped[str] = mapped_column(String(512))
     role: Mapped[UserRole] = mapped_column(Enum(UserRole), default=UserRole.customer)
-
     bookings: Mapped[List["Booking"]] = relationship(back_populates="user")
 
 
@@ -30,9 +29,8 @@ class Screen(db.Model):
     __tablename__ = "screens"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(String(32))  # Ej: 'Sala 1', 'Sala IMAX'
+    name: Mapped[str] = mapped_column(String(32))  
     capacity: Mapped[int] = mapped_column(Integer)
-
     showtimes: Mapped[List["Showtime"]] = relationship(back_populates="screen")
 
 
@@ -42,11 +40,10 @@ class Movie(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(String(128))
     synopsis: Mapped[str] = mapped_column(String(2048))
-    duration: Mapped[int] = mapped_column(Integer)  # Duración en minutos
-    age_rating: Mapped[str] = mapped_column(String(16))  # Ej: '+12', '+16', 'TP'
+    duration: Mapped[int] = mapped_column(Integer)  # duration in minutes
+    age_rating: Mapped[str] = mapped_column(String(16))  
     genre: Mapped[str] = mapped_column(String(64))
-    poster_url: Mapped[Optional[str]] = mapped_column(String(256))
-
+    poster: Mapped[Optional[str]] = mapped_column(String(128))  
     showtimes: Mapped[List["Showtime"]] = relationship(back_populates="movie")
 
 
@@ -54,8 +51,7 @@ class TicketPrice(db.Model):
     __tablename__ = "ticket_prices"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    day_of_week: Mapped[int] = mapped_column(Integer)  # 0: Lunes, ..., 2: Miércoles (espectador), 6: Domingo
-    day_name: Mapped[str] = mapped_column(String(16))
+    day_name: Mapped[str] = mapped_column(String(16)) #los dias de la semana
     price: Mapped[float] = mapped_column(Float)
 
 
@@ -66,7 +62,6 @@ class Showtime(db.Model):
     movie_id: Mapped[int] = mapped_column(ForeignKey("movies.id"))
     screen_id: Mapped[int] = mapped_column(ForeignKey("screens.id"))
     show_time: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True))
-
     movie: Mapped["Movie"] = relationship(back_populates="showtimes")
     screen: Mapped["Screen"] = relationship(back_populates="showtimes")
     bookings: Mapped[List["Booking"]] = relationship(back_populates="showtime")

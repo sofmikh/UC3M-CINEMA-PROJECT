@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Popcorn Cinema{% endblock %}</title>
+    <title>{% block title %}Cima Cinema{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
 </head>
 <body>
     <header class="navbar">
-        <a href="{{ url_for('main.index') }}" class="brand">popcorn/cinema</a>
+        <a href="{{ url_for('main.index') }}" class="brand">cima/cinema</a>
         <nav aria-label="Main">
             <ul class="nav-links">
                 <li><a href="{{ url_for('main.index') }}" class="{{ 'active' if request.endpoint == 'main.index' }}">now showing</a></li>
@@ -26,7 +26,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 PopcornCinema · Web Applications, UC3M</p>
+        <p>&copy; 2026 Cima Cinema · Web Applications, UC3M</p>
     </footer>
 </body>
 </html>

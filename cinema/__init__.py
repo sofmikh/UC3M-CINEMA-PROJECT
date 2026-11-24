@@ -34,7 +34,7 @@ def create_app(test_config=None):
     def load_user(user_id):
         return db.session.get(model.User, int(user_id))
 
-    # Crea las tablas del modelo en la base de datos (lo pide el Checkpoint 1)
+    # create the database tables if they don't exist yet
     with app.app_context():
         db.create_all()
 
